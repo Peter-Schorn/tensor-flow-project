@@ -1,4 +1,5 @@
-FROM python:latest
+#FROM python:latest
+FROM tensorflow/tensorflow:latest
 
 WORKDIR /python-docker
 

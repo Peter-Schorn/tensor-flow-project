@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 import random
-
+import tensorflow as tf
 
 app = Flask(__name__)
 
@@ -11,19 +11,10 @@ def index():
 
 @app.route("/categorize", methods=["POST"])
 def categorize():
-    # categories = ["dog", "cat", "cow"]
-    # category = random.choice(categories)
-    # return f"<h1>{category}</h1>"
-    if request.method != "POST":
-        print(f"error: unexpected method: {request.method}")
-        return
+    data = request.data
+    print(data)
+    return "calculating..."
 
-    f = request.files[request.files.keys(0)]
-    print(f)
-
-
-
-import tensorflow as tf
 mnist = tf.keras.datasets.mnist
 
 (x_train, y_train),(x_test, y_test) = mnist.load_data()

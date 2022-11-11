@@ -24,7 +24,12 @@ def categorize():
     # the data for the request body
     image_data = request.data
     image = tf.io.decode_jpeg(image_data, channels=3)
-    image2 = tf.image.resize(tf.image.convert_image_dtype(image, dtype=tf.float32), size=[224, 224])
+    image2 = tf.image.resize(
+        tf.image.convert_image_dtype(
+            image, dtype=tf.float32
+        ),
+        size=[224, 224]
+    )
     print(image2)
     data = tf.data.Dataset.from_tensor_slices([image2]).batch(1)
     for image in data:

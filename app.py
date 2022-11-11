@@ -6,8 +6,6 @@ from flask import Flask
 from flask import request
 import tensorflow as tf
 
-import requests
-import tensorflow as tf
 import numpy as np
 
 print(os.getpid())

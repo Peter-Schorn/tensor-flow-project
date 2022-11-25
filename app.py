@@ -8,6 +8,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 import tensorflow as tf
+import re
 
 import numpy as np
 
@@ -62,7 +63,20 @@ def categorize():
 @app.route("/categories")
 def catergories():
     category_names = list(IMAGENET2012_CLASSES.values())
-    # return category_names
+
+    query = request.args
+    search = query.get("q", default="", type=str)
+    print(f"search for '{search}'")
+    if search:
+        results = []
+        # all the words in all the category names
+        words = list(re.findall(r"\w+", x) for x in category_names)
+        # category_names = filter(lambda x: search in words , category_names)
+        for word in words:
+            print(word, end=", ")
+        # category_names =
+
+
     data = {
         "title": "Categories",
         "category_names": category_names

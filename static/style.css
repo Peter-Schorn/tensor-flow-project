@@ -3,10 +3,13 @@
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
-#upload-main table tr td {
+#upload-main table,
+#upload-main th,
+#upload-main tr,
+#upload-main td {
     padding: 10px;
 }
 
@@ -16,4 +19,15 @@ table, th, td {
 
 .categories-list li {
     padding: 5px;
+}
+
+.search-container {
+    margin-bottom: 50px;
+
+}
+
+.search {
+    max-width: 500px;
+    /* margin: auto; */
+    float: left;
 }

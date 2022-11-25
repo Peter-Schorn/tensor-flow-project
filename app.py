@@ -3,7 +3,7 @@
 from collections import OrderedDict
 import random
 import os
-
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -1071,10 +1071,12 @@ IMAGENET2012_CLASSES = OrderedDict(
 )
 
 def whatIsIt(predictions):
-    index = np.argmax(predictions[0,:])
-    confidence = float(predictions[0, index])
-    name = IMAGENET2012_CLASSES[list(IMAGENET2012_CLASSES.keys())[index]]
-    return name, confidence
+    #index = np.argmax(predictions[0,:])
+    indices = np.argsort(predictions[0,:])[-5:]
+    confidences = [float(predictions[0,index]) for index in indices]
+    #confidence = float(predictions[0, index])
+    names =[IMAGENET2012_CLASSES[list(IMAGENET2012_CLASSES.keys())[index]] for index in indices]
+    return names, confidences
 
 if __name__ == '__main__':
 

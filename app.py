@@ -48,10 +48,11 @@ def categorize():
     for image in data:
         model_pred = model.predict(image*2.0 - 1.0)
     # return str(whatIsIt(model_pred))
-    name, confidence = whatIsIt(model_pred)
+    names, confidences = whatIsIt(model_pred)
+    items = list(item for item in list(zip(names, confidences)))
     data = {
-        "name": name,
-        "confidence": confidence
+        "title": "Result",
+        "items": items
     }
     return render_template("result.html", data=data)
 

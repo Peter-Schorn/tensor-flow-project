@@ -17,7 +17,7 @@
 <body>
 
     <!-- show breakpoints -->
-    <div
+    <!-- <div
         class="position-fixed text-nowrap rounded-3 p-1 m-3 mt-5 bg-info opacity-50"
         style="z-index: 100;"
     >
@@ -27,7 +27,7 @@
         <div class="d-none d-lg-block d-xl-none">lg</div>
         <div class="d-none d-xl-block d-xxl-none">xl</div>
         <div class="d-none d-xxl-block">xxl</div>
-    </div>
+    </div> -->
 
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
@@ -49,14 +49,18 @@
 
     <div class="container mt-5" id="upload-main">
         <table>
+            <th>
+                Category
+            </th>
+            <th>
+                Confidence
+            </th>
+            {% for item in data["items"] %}
             <tr>
-                <td>Category</td>
-                <td>{{data.name}}</td>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
             </tr>
-            <tr>
-                <td>Confidence</td>
-                <td>{{data.confidence}}</td>
-            </tr>
+            {% endfor %}
         </table>
     </div>
 

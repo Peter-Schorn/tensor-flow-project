@@ -72,10 +72,8 @@ def catergories():
         # all the words in all the category names
         words = list(re.findall(r"\w+", x) for x in category_names)
         # category_names = filter(lambda x: search in words , category_names)
-        for word in words:
-            print(word, end=", ")
-        # category_names =
-
+        # for word in words:
+        #     print(word, end=", ")
 
     data = {
         "title": "Categories",

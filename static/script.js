@@ -6,5 +6,5 @@ button.addEventListener("click", () => {
 
 const searchField = document.querySelector(".search-field");
 searchField.addEventListener('input', (event) => {
-    console.log(`Input: ${event}`);
+    // console.log(`Input: ${event}`);
 });

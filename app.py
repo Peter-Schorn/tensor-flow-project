@@ -49,7 +49,9 @@ def categorize():
         model_pred = model.predict(image*2.0 - 1.0)
     # return str(whatIsIt(model_pred))
     names, confidences = whatIsIt(model_pred)
+    confidences = ("{0:2.0f}%".format(confidence * 100) for confidence in confidences)
     items = list(item for item in list(zip(names, confidences)))
+    items.sort(key=lambda item: item[1], reverse=True)
     data = {
         "title": "Result",
         "items": items

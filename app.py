@@ -34,6 +34,8 @@ def categorize():
     with open(image_file.filename, "rb") as file:
         image_data = file.read()
 
+    os.remove(image_file.filename)
+
     image = tf.io.decode_jpeg(image_data, channels=3)
     image2 = tf.image.resize(
         tf.image.convert_image_dtype(
@@ -45,7 +47,13 @@ def categorize():
     data = tf.data.Dataset.from_tensor_slices([image2]).batch(1)
     for image in data:
         model_pred = model.predict(image*2.0 - 1.0)
-    return whatIsIt(model_pred)[0]
+    # return str(whatIsIt(model_pred))
+    name, confidence = whatIsIt(model_pred)
+    data = {
+        "name": name,
+        "confidence": confidence
+    }
+    return render_template("result.html", data=data)
 
 @app.route("/categories")
 def catergories():

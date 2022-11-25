@@ -1,3 +1,5 @@
+#! /usr/local/bin/python3
+
 from collections import OrderedDict
 import random
 import os
@@ -1063,7 +1065,8 @@ IMAGENET2012_CLASSES = OrderedDict(
 def whatIsIt(predictions):
     index = np.argmax(predictions[0,:])
     confidence = float(predictions[0, index])
-    return IMAGENET2012_CLASSES[list(IMAGENET2012_CLASSES.keys())[index]], confidence
+    name = IMAGENET2012_CLASSES[list(IMAGENET2012_CLASSES.keys())[index]]
+    return name, confidence
 
 if __name__ == '__main__':
 

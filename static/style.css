@@ -1,0 +1,11 @@
+#upload-main {
+    max-width: 1000px;
+}
+
+.categories-list {
+    margin: 40px;
+}
+
+.categories-list li {
+    padding: 5px;
+}

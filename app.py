@@ -4,6 +4,7 @@ import os
 
 from flask import Flask
 from flask import request
+from flask import render_template
 import tensorflow as tf
 
 import numpy as np
@@ -17,12 +18,20 @@ model.compile()
 
 @app.route("/")
 def index():
-    return "success"
+    return render_template("upload.html")
 
 @app.route("/categorize", methods=["POST"])
 def categorize():
     # the data for the request body
-    image_data = request.data
+    # image_data = request.data
+
+    print(request.files)
+    image_file = request.files["file"]
+    image_file.save(image_file.filename)
+
+    with open(image_file.filename, "rb") as file:
+        image_data = file.read()
+
     image = tf.io.decode_jpeg(image_data, channels=3)
     image2 = tf.image.resize(
         tf.image.convert_image_dtype(
@@ -35,6 +44,16 @@ def categorize():
     for image in data:
         model_pred = model.predict(image*2.0 - 1.0)
     return whatIsIt(model_pred)[0]
+
+@app.route("/categories")
+def catergories():
+    category_names = list(IMAGENET2012_CLASSES.values())
+    # return category_names
+    data = {
+        "title": "Categories",
+        "category_names": category_names
+    }
+    return render_template("categories.html", data=data)
 
 IMAGENET2012_CLASSES = OrderedDict(
     {
@@ -1042,6 +1061,16 @@ IMAGENET2012_CLASSES = OrderedDict(
 )
 
 def whatIsIt(predictions):
-  index = np.argmax(predictions[0,:])
-  confidence = float(predictions[0, index])
-  return IMAGENET2012_CLASSES[list(IMAGENET2012_CLASSES.keys())[index]], confidence
+    index = np.argmax(predictions[0,:])
+    confidence = float(predictions[0, index])
+    return IMAGENET2012_CLASSES[list(IMAGENET2012_CLASSES.keys())[index]], confidence
+
+if __name__ == '__main__':
+
+    # print(list(IMAGENET2012_CLASSES.values()))
+
+    app.run(
+        debug=True,
+        host="0.0.0.0",
+        port=5001
+    )

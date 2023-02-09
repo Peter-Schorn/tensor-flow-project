@@ -1,2 +1,3 @@
 # tensor-flow-project
-tensor flow python aws
+
+Tensor Flow for Python on AWS.
